@@ -1,0 +1,12 @@
+services:
+  mysql-fruit-server:
+    container_name: mysql-fruit
+    environment:
+    - MYSQL_ROOT_PASSWORD=1234
+    - MYSQL_DATABASE=fruit
+    volumes:
+    - ./:/docker-entrypoint-initdb.d
+    image: mysql:5.7.22
+    ports:
+      - 3309:3306
+version: "3"

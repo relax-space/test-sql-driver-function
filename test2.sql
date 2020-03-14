@@ -1,0 +1,9 @@
+DROP FUNCTION IF EXISTS hello2;
+
+DELIMITER $$
+CREATE FUNCTION hello2(labelIds varchar(500)) 
+RETURNS varchar(1000)
+BEGIN
+    RETURN CONCAT('Hello, ',s,'!');
+END $$
+DELIMITER ;
