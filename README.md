@@ -3,6 +3,16 @@
 ## question
 docker-entrypoint-initdb.d of `mysql docker` already supports `delimiter`, but `go-sql-driver` still does not support this syntax, resulting in failure to create sql functions
 
+## solution
+
+`multiStatements=true`
+
+```
+root:1234@tcp(127.0.0.1:3309)/fruit?charset=utf8&parseTime=True&loc=UTC&multiStatements=true
+```
+
+https://github.com/go-sql-driver/mysql/issues/1072
+
 ## start
 
 1. test mysql(docker) docker-entrypoint-initdb.d 
@@ -17,15 +27,6 @@ $ go run .
 ```
 output
 ``` shell
-PS D:\source\gopath\src\test-sql-driver-function> go run .
-hello1 success {0xc0000aa100 0xc00001e240}
-panic: hello2 failure,Error 1064: You have an error in your SQL syntax; check the 
-manual that corresponds to your MySQL server version for the right syntax to use near 'DELIMITER $$
-CREATE FUNCTION hello2(labelIds varchar(500))
-RETURNS varchar(1000' at line 3
-
-goroutine 1 [running]:
-main.main()
-        D:/source/gopath/src/test-sql-driver-function/main.go:40 +0x2d1
-exit status 2
+hello1 success {0xc0000c0000 0xc0000ba010}
+hello2 success {0xc0000c0000 0xc0000ba040}
 ```
